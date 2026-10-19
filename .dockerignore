@@ -1,0 +1,9 @@
+data/
+.venv/
+results/
+.ipynb_checkpoints/
+__pycache__/
+*.ipynb
+models/xgb_model.json
+models/calibrator.joblib
+.git/
