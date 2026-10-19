@@ -165,7 +165,7 @@
     ]
   },
   "threshold": 0.17,
-  "test_auc": 0.7566,
+  "test_auc": 0.7582,
   "form_fields": [
     {
       "name": "AMT_INCOME_TOTAL",

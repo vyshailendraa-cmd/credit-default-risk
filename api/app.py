@@ -4,6 +4,7 @@ Runs locally with:   uvicorn api.app:app --reload    (from the project root)
 Runs on AWS Lambda through the `handler` adapter at the bottom.
 
 Endpoints
+  GET  /         -> web page with the applicant form
   GET  /health   -> status check
   GET  /schema   -> form fields (labels, ranges, options, defaults) for the front end
   POST /predict  -> default probability, decision and reason codes for one applicant
@@ -17,6 +18,7 @@ import pandas as pd
 import xgboost as xgb
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import HTMLResponse
 from mangum import Mangum
 
 from features import to_model_frame
@@ -47,6 +49,14 @@ app = FastAPI(title="Credit Default Risk API", version="1.0")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"], allow_headers=["*"])
 
 Value = Optional[Union[float, int, str]]
+
+
+INDEX_HTML = (_here / "index.html").read_text(encoding="utf-8")
+
+
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+def index():
+    return INDEX_HTML
 
 
 @app.get("/health")

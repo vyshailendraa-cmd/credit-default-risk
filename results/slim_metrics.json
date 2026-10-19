@@ -1,10 +1,10 @@
 {
   "model": "slim_xgboost",
   "inputs": 17,
-  "test_auc": 0.7566,
-  "test_gini": 0.5131,
+  "test_auc": 0.7582,
+  "test_gini": 0.5164,
   "full_model_auc": 0.7607,
   "threshold": 0.17,
-  "approval_rate": 0.8838,
-  "default_rate_approved": 0.057
+  "approval_rate": 0.8833,
+  "default_rate_approved": 0.0569
 }

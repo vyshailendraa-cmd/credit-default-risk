@@ -1,5 +1,8 @@
-fastapi>=0.110
-mangum>=0.17
-xgboost-cpu>=2.1
-pandas>=2.0
-numpy>=1.24
+# Exact versions used in the AWS Lambda layer (Python 3.12, x86_64).
+# The model must be trained with the same XGBoost version (3.0.5) so predictions match.
+fastapi==0.148.0
+mangum==0.22.0
+xgboost-cpu==3.0.5
+pandas==2.3.2
+numpy==2.2.6
+scipy==1.16.3
