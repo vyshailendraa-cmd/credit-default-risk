@@ -1,0 +1,13 @@
+{
+  "model": "xgboost_calibrated",
+  "test_auc": 0.7607,
+  "test_gini": 0.5213,
+  "baseline_auc": 0.7474,
+  "brier_raw": 0.06726,
+  "brier_calibrated": 0.06733,
+  "threshold": 0.16,
+  "approval_rate": 0.8926,
+  "default_rate_approved": 0.0581,
+  "default_rate_all": 0.0803,
+  "best_trees": 693
+}

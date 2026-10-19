@@ -1,0 +1,8 @@
+{
+  "model": "logistic_regression",
+  "test_auc": 0.7474,
+  "test_gini": 0.4948,
+  "n_train": 196806,
+  "n_test": 49202,
+  "default_rate": 0.0803
+}
