@@ -29,9 +29,10 @@ def prepare(df: pd.DataFrame) -> pd.DataFrame:
     new["CREDIT_TERM"] = df["AMT_ANNUITY"] / df["AMT_CREDIT"]
     # Borrowing more than the item costs: the signal behind the AMT_CREDIT / AMT_GOODS_PRICE pair in Step 1.
     new["CREDIT_TO_GOODS"] = df["AMT_CREDIT"] / df["AMT_GOODS_PRICE"]
-    new["AGE_YEARS"] = -df["DAYS_BIRTH"] / 365.25
     new["EMPLOYED_YEARS"] = -df["DAYS_EMPLOYED"] / 365.25
-    new["EMPLOYED_TO_AGE"] = new["EMPLOYED_YEARS"] / new["AGE_YEARS"]
+    if "DAYS_BIRTH" in df.columns:  # absent in the deployment model, which excludes age
+        new["AGE_YEARS"] = -df["DAYS_BIRTH"] / 365.25
+        new["EMPLOYED_TO_AGE"] = new["EMPLOYED_YEARS"] / new["AGE_YEARS"]
 
     ext = [c for c in ["EXT_SOURCE_1", "EXT_SOURCE_2", "EXT_SOURCE_3"] if c in df.columns]
     if ext:
@@ -50,3 +51,15 @@ def split_xy(df: pd.DataFrame):
     cat_cols = X.select_dtypes(include=["object", "string"]).columns
     X[cat_cols] = X[cat_cols].astype("category")
     return X, y
+
+
+def to_model_frame(raw: pd.DataFrame, schema: dict) -> pd.DataFrame:
+    """Turn raw applicant inputs into the exact feature frame a saved model expects.
+
+    Used at prediction time (the API): applies prepare(), orders columns as in
+    training, and gives categoricals the same category list the model was trained on.
+    """
+    X = prepare(raw).reindex(columns=schema["features"])
+    for col, cats in schema["categories"].items():
+        X[col] = pd.Categorical(X[col].astype("object"), categories=cats)
+    return X

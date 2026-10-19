@@ -1,0 +1,15 @@
+{
+  "top_features_by_mean_abs_shap": [
+    "Average external credit score",
+    "External credit score 3",
+    "Repayment speed (annuity / loan)",
+    "Loan amount vs. price of goods",
+    "Employer sector",
+    "Repayment amount",
+    "External credit score 1",
+    "Lowest external credit score",
+    "Occupation",
+    "Education level"
+  ],
+  "shap_sums_match_model": true
+}
